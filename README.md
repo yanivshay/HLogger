@@ -28,44 +28,45 @@ npm install hiologger
 #### HealthyLogger(options)
 (_**ConsoleTarget** Only one per log instance._)
 
--   options _Default: defaultOptions_
-    -   **level**
-        -   Valid values: [error, warn, info, debug] 
-        -   Default: info
-    -   **targets** 
-        -   Valid values:
-            -   type: [file, console]
-            -   formatDate: [(https://momentjs.com/docs/#/parsing/string-format/)] **(Optional)**
-            -   fileName: [any] **(Not optional when type is file)**
-        -   Default: 
-            ```
-            {
-            type: 'console',
-            formatDate: 'DD/MM/YYYY HH:mm:ss'
-            }
-            ```
-        -   targetConfig
-            ```
-            {
-            type: string,
-            formatDate: string,
-            fileName: string
-            }
-            ```
 ```
+options:
 {
     level: string,
     targets: [targetConfig]
 }
+
+targetConfig:
+{
+type: string,
+formatDate: string,
+fileName: string
+}
 ```
 
+-   options
+    -   **level**
+        -   Valid values: [error, warn, info, debug] 
+        -   Default: info
+    -   **targets - targetConfig** 
+        -   Valid values:
+            -   type: [file, console] **Required** 
+            -   formatDate: [(https://momentjs.com/docs/#/parsing/string-format/)] _Default: DD/MM/YYYY HH:mm:ss_ **(Optional)**
+            -   fileName: [any] **(Not optional when type is file)**
+        -   Default targets: 
+            ```
+            [{
+            type: 'console',
+            formatDate: 'DD/MM/YYYY HH:mm:ss'
+            }]
+            ```
+
 #### addTarget(targetConfig)
--   targetConfig **\<ConsoleTarget/FileTarget \>** **Required** (_**ConsoleTarget** Only one per log instance._)
-    -   **\<ConsoleTarget\>**
-    -   **\<FileTarget \>**
+(_**ConsoleTarget** Only one per log instance._)
+-   targetConfig  **Required**
 
 #### setLoggerLevel(level)
-  -   level **\<string\>** **Required** Valid values: [error, warn, info, debug]
+  -   level **Required** 
+    -   Valid values: [error, warn, info, debug]
 
 
 #### error(content)
@@ -76,25 +77,6 @@ npm install hiologger
 
 #### debug(content)
 
-
-### \<ConsoleTarget\>
-
-#### ConsoleTarget(options)
-
--   options _Default: defaultOptions_
-    -   dateFormat **\<string\>** Valid values: [(https://momentjs.com/docs/#/parsing/string-format/)] _Default: DD/MM/YYYY HH:mm:ss_
-
-
-### \<FileTarget\>
-
-#### FileTarget(options)
-
--   options _Default: defaultOptions_
-    -   fileName **\<string\>** **Required**
-    -   dateFormat **\<string\>** Valid values: [(https://momentjs.com/docs/#/parsing/string-format/)] _Default: DD/MM/YYYY HH:mm:ss_
-
-#### setFileNewPath(filepath)
-  -   filepath **\<string\>** **Required**
 
 <a name="example"></a>
 
