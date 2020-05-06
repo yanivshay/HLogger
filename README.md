@@ -26,15 +26,43 @@ npm install hiologger
 ### \<HealthyLogger\>
 
 #### HealthyLogger(options)
+(_**ConsoleTarget** Only one per log instance._)
 
 -   options _Default: defaultOptions_
-    -   level **\<string\>** Valid values: [error, warn, info, debug] _Default: info_
-    -   targets **\<Array of ConsoleTarget/FileTarget \>** _Default: ConsoleTarget_ (_**ConsoleTarget** Only one per log instance._)
+    -   **level**
+        -   Valid values: [error, warn, info, debug] 
+        -   Default: info
+    -   **targets** 
+        -   Valid values:
+            -   type: [file, console]
+            -   formatDate: [(https://momentjs.com/docs/#/parsing/string-format/)] **(Optional)**
+            -   fileName: [any] **(Not optional when type is file)**
+        -   Default: 
+            ```
+            {
+            type: 'console',
+            formatDate: 'DD/MM/YYYY HH:mm:ss'
+            }
+            ```
+        -   targetConfig
+            ```
+            {
+            type: string,
+            formatDate: string,
+            fileName: string
+            }
+            ```
+```
+{
+    level: string,
+    targets: [targetConfig]
+}
+```
 
 #### addTarget(targetConfig)
-  -   targetConfig **\<ConsoleTarget/FileTarget \>** **Required** (_**ConsoleTarget** Only one per log instance._)
-    -   ##### ConsoleTarget
-    -   ##### FileTarget
+-   targetConfig **\<ConsoleTarget/FileTarget \>** **Required** (_**ConsoleTarget** Only one per log instance._)
+    -   **\<ConsoleTarget\>**
+    -   **\<FileTarget \>**
 
 #### setLoggerLevel(level)
   -   level **\<string\>** **Required** Valid values: [error, warn, info, debug]
