@@ -16,7 +16,7 @@ can log to a different targets - file, console.
 ## Install
 
 ```
-npm install hlogger
+npm install hiologger
 ```
 
 <a name="configuration"></a>
