@@ -1,0 +1,15 @@
+{
+  "name": "hiologger",
+  "version": "1.0.1",
+  "description": "hio new loggin library (task)",
+  "main": "HealthyLogger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yaniv Shay",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.25.3",
+    "path": "^0.12.7"
+  }
+}
