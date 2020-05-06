@@ -5,7 +5,7 @@ support the following levels: debug, info, warning, error.
 can log to a different targets - file, console.
 
 
-## Contents.
+## Contents
 
 -   [ Install ](#install)
 -   [ Configuration ](#configuration)
