@@ -23,9 +23,6 @@ npm install hlogger
 
 ## Configuration
 
--   Terminal transport works in both Node.js and the browser.
--   File transport works only in Node.js.
-
 ### \<HealthyLogger\>
 
 #### HealthyLogger(options)
