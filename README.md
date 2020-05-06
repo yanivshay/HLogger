@@ -1,10 +1,5 @@
 # HLogger
 
-[![Build](https://img.shields.io/github/workflow/status/langurama/log/Langurama%20Log?style=for-the-badge)](https://github.com/langurama/log/actions?query=workflow%3A%22Langurama+Log%22)
-[![Coverage](https://img.shields.io/codecov/c/github/langurama/log?style=for-the-badge)](https://codecov.io/gh/langurama/log/branch/master)
-[![Version](https://img.shields.io/npm/v/@langurama/log.svg?style=for-the-badge)](https://www.npmjs.com/package/@langurama/log)
-[![License](https://img.shields.io/npm/l/@langurama/log.svg?style=for-the-badge)](https://github.com/langurama/log/blob/master/LICENSE)
-
 healthy logger task.
 support the following levels: debug, info, warning, error.
 can log to a different targets - file, console.
@@ -54,6 +49,24 @@ npm install hlogger
 
 #### debug(content)
 
+
+### \<ConsoleTarget\>
+
+#### ConsoleTarget(options)
+
+-   options _Default: defaultOptions_
+    -   dateFormat **\<string\>** Valid values: [(https://momentjs.com/docs/#/parsing/string-format/)] _Default: DD/MM/YYYY HH:mm:ss_
+
+
+### \<FileTarget\>
+
+#### FileTarget(options)
+
+-   options _Default: defaultOptions_
+    -   fileName **\<string\>** **Required**
+    -   dateFormat **\<string\>** Valid values: [(https://momentjs.com/docs/#/parsing/string-format/)] _Default: DD/MM/YYYY HH:mm:ss_
+
+
 <a name="example"></a>
 
 ## Example
@@ -63,93 +76,43 @@ You may check the `example/` directory for an runnable example file.
 Example output:
 
 ```
-import { default as languramaLog } from 'log';
-import { default as chalk } from 'chalk'; // If you want to have colors in the terminal.
+const { HealthyLogger, FileTarget, ConsoleTarget } = require("./HealthyLogger");
 
-const log = languramaLog([
-    {
-        type: 'file',
-        path: 'log/foo2.log',
-        callee: false,
-        level: 'error'
-    },
-    {
-        type: 'file',
-        path: 'log/foo1.log',
-        level: 'warn',
-        json: true
-    },
-    {
-        type: 'terminal',
-        level: 'debug',
-        callee: true,
-        chalk
-    }
-]);
+const logger1 = new HealthyLogger({
+  targets: [
+    new ConsoleTarget("HH:mm:ss"),
+    new FileTarget({
+      dateFormat: "HH:mm:ss",
+      fileName: "logs/firstlogfile.log",
+    }),
+    new FileTarget({
+      fileName: "logs/seclogfile.log",
+    }),
+  ],
+});
 
-log.info('herro', 1, 3.4, null, undefined, [1, 9], new Error('crap'), true, { wtf: 'k' });
-log.error(new Error('F*ck'));
-log.warn('This is a warning.');
-log.info('God.');
-log.debug('k.');
-log.trace('This will not be displayed.');
+const logger2 = new HealthyLogger({
+  level: "error",
+});
+
+logger1.warn("logger1 warn");
+logger1.error("logger1 error");
+logger1.info("logger1 info");
+logger1.debug("logger1 debug");
+
+logger2.warn("logger2 warn");
+logger2.error("logger2 error");
+logger2.info("logger2 info");
+logger2.debug("logger2 debug");
 ```
 
 Will result in the following.
 
-Terminal:
-
 ```
-2020-05-02 15:24:27 UTC+2   INFO herro 1 3.4 null undefined [1,9] Error: crap
-    at Object.<anonymous> (/home/karl/dev/log/example/index.js:73:52)
-    at Module._compile (internal/modules/cjs/loader.js:955:30)
-    at Module._compile (/home/karl/dev/log/node_modules/pirates/lib/index.js:99:24)
-    at Module._extensions..js (internal/modules/cjs/loader.js:991:10)
-    at Object.newLoader [as .js] (/home/karl/dev/log/node_modules/pirates/lib/index.js:104:7)
-    at Module.load (internal/modules/cjs/loader.js:811:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:723:14)
-    at Function.Module.runMain (internal/modules/cjs/loader.js:1043:10)
-    at Object.<anonymous> (/home/karl/dev/log/node_modules/@babel/node/lib/_babel-node.js:180:21)
-    at Module._compile (internal/modules/cjs/loader.js:955:30) true {
-    "wtf": "k"
-} /home/karl/dev/log/example/index.js:73:5
-2020-05-02 15:24:27 UTC+2  ERROR Error: F*ck
-    at Object.<anonymous> (/home/karl/dev/log/example/index.js:74:11)
-    at Module._compile (internal/modules/cjs/loader.js:955:30)
-    at Module._compile (/home/karl/dev/log/node_modules/pirates/lib/index.js:99:24)
-    at Module._extensions..js (internal/modules/cjs/loader.js:991:10)
-    at Object.newLoader [as .js] (/home/karl/dev/log/node_modules/pirates/lib/index.js:104:7)
-    at Module.load (internal/modules/cjs/loader.js:811:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:723:14)
-    at Function.Module.runMain (internal/modules/cjs/loader.js:1043:10)
-    at Object.<anonymous> (/home/karl/dev/log/node_modules/@babel/node/lib/_babel-node.js:180:21)
-    at Module._compile (internal/modules/cjs/loader.js:955:30) /home/karl/dev/log/example/index.js:74:5
-2020-05-02 15:24:27 UTC+2   WARN This is a warning. /home/karl/dev/log/example/index.js:75:5
-2020-05-02 15:24:27 UTC+2   INFO God. /home/karl/dev/log/example/index.js:76:5
-2020-05-02 15:24:27 UTC+2  DEBUG k. /home/karl/dev/log/example/index.js:77:5
+10:55:51 [INFO] logger1 info
+10:55:51 [DEBUG] logger1 debug
+06/05/2020 10:55:51 [WARN] logger2 warn  
+06/05/2020 10:55:51 [ERROR] logger2 error
+06/05/2020 10:55:51 [INFO] logger2 info
+06/05/2020 10:55:51 [DEBUG] logger2 debug
 ```
-
-File `log/foo1.log`:
-
-```
-2020-05-02 15:56:39 UTC+2 ERROR Error: F*ck
-    at Object.<anonymous> (/home/karl/dev/log/example/index.js:74:11)
-    at Module._compile (internal/modules/cjs/loader.js:955:30)
-    at Module._compile (/home/karl/dev/log/node_modules/pirates/lib/index.js:99:24)
-    at Module._extensions..js (internal/modules/cjs/loader.js:991:10)
-    at Object.newLoader [as .js] (/home/karl/dev/log/node_modules/pirates/lib/index.js:104:7)
-    at Module.load (internal/modules/cjs/loader.js:811:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:723:14)
-    at Function.Module.runMain (internal/modules/cjs/loader.js:1043:10)
-    at Object.<anonymous> (/home/karl/dev/log/node_modules/@babel/node/lib/_babel-node.js:180:21)
-    at Module._compile (internal/modules/cjs/loader.js:955:30)
-```
-
-File `log/foo2.log`:
-
-```
-{"timestamp":"2020-05-02 15:56:39 UTC+2","level":"ERROR","message":"Error: F*ck\n    at Object.<anonymous> (/home/karl/dev/log/example/index.js:74:11)\n    at Module._compile (internal/modules/cjs/loader.js:955:30)\n    at Module._compile (/home/karl/dev/log/node_modules/pirates/lib/index.js:99:24)\n    at Module._extensions..js (internal/modules/cjs/loader.js:991:10)\n    at Object.newLoader [as .js] (/home/karl/dev/log/node_modules/pirates/lib/index.js:104:7)\n    at Module.load (internal/modules/cjs/loader.js:811:32)\n    at Function.Module._load (internal/modules/cjs/loader.js:723:14)\n    at Function.Module.runMain (internal/modules/cjs/loader.js:1043:10)\n    at Object.<anonymous> (/home/karl/dev/log/node_modules/@babel/node/lib/_babel-node.js:180:21)\n    at Module._compile (internal/modules/cjs/loader.js:955:30)"}
-{"timestamp":"2020-05-02 15:56:39 UTC+2","level":"WARN","message":"This is a warning."}
-```
-
-<a name="how-it-works"></a>
