@@ -71,9 +71,9 @@ npm install hlogger
 
 ## Example
 
-You may check the `example/` directory for an runnable example file.
+You can find a runnable example on `example.js` file.
 
-Example output:
+Another Example:
 
 ```
 const { HealthyLogger, FileTarget, ConsoleTarget } = require("./HealthyLogger");
