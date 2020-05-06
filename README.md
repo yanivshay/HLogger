@@ -32,10 +32,10 @@ npm install hlogger
     -   targets **\<Array of ConsoleTarget/FileTarget \>** _Default: ConsoleTarget_ (_**ConsoleTarget** Only one per log instance._)
 
 #### addTarget(target)
-  -   target **\<ConsoleTarget/FileTarget \>** (_**ConsoleTarget** Only one per log instance._)
+  -   target **\<ConsoleTarget/FileTarget \>** **Required** (_**ConsoleTarget** Only one per log instance._)
 
 #### setLoggerLevel(level)
-  -   level **\<string\>** Valid values: [error, warn, info, debug]
+  -   level **\<string\>** **Required** Valid values: [error, warn, info, debug]
 
 
 #### error(content)
@@ -63,6 +63,8 @@ npm install hlogger
     -   fileName **\<string\>** **Required**
     -   dateFormat **\<string\>** Valid values: [(https://momentjs.com/docs/#/parsing/string-format/)] _Default: DD/MM/YYYY HH:mm:ss_
 
+#### setFileNewPath(filepath)
+  -   filepath **\<string\>** **Required**
 
 <a name="example"></a>
 
