@@ -37,9 +37,9 @@ options:
 
 targetConfig:
 {
-type: string,
-formatDate: string,
-fileName: string
+    type: string,
+    formatDate: string,
+    fileName: string
 }
 ```
 
