@@ -31,8 +31,10 @@ npm install hiologger
     -   level **\<string\>** Valid values: [error, warn, info, debug] _Default: info_
     -   targets **\<Array of ConsoleTarget/FileTarget \>** _Default: ConsoleTarget_ (_**ConsoleTarget** Only one per log instance._)
 
-#### addTarget(target)
-  -   target **\<ConsoleTarget/FileTarget \>** **Required** (_**ConsoleTarget** Only one per log instance._)
+#### addTarget(targetConfig)
+  -   targetConfig **\<ConsoleTarget/FileTarget \>** **Required** (_**ConsoleTarget** Only one per log instance._)
+    -   ##### ConsoleTarget
+    -   ##### FileTarget
 
 #### setLoggerLevel(level)
   -   level **\<string\>** **Required** Valid values: [error, warn, info, debug]
