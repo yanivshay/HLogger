@@ -87,18 +87,19 @@ You can find a runnable example on `example.js` file.
 Another Example:
 
 ```
-const { HealthyLogger, FileTarget, ConsoleTarget } = require("./HealthyLogger");
+const HealthyLogger = require("./HealthyLogger");
 
 const logger1 = new HealthyLogger({
   targets: [
-    new ConsoleTarget("HH:mm:ss"),
-    new FileTarget({
+    {
+      type: "file",
       dateFormat: "HH:mm:ss",
       fileName: "logs/firstlogfile.log",
-    }),
-    new FileTarget({
+    },
+    {
+      type: "file",
       fileName: "logs/seclogfile.log",
-    }),
+    },
   ],
 });
 
@@ -118,12 +119,21 @@ logger2.debug("logger2 debug");
 ```
 
 Will result in the following.
+Console:
 
 ```
-10:55:51 [INFO] logger1 info
-10:55:51 [DEBUG] logger1 debug
-06/05/2020 10:55:51 [WARN] logger2 warn  
-06/05/2020 10:55:51 [ERROR] logger2 error
-06/05/2020 10:55:51 [INFO] logger2 info
-06/05/2020 10:55:51 [DEBUG] logger2 debug
+04/05/2020 14:34:40 [WARN] logger2 warn
+04/05/2020 14:34:40 [ERROR] logger2 error
+04/05/2020 14:34:40 [INFO] logger2 info
+04/05/2020 14:34:40 [DEBUG] logger2 debug
+```
+File firstlogfile.log:
+```
+14:34:40 [INFO] logger1 info
+14:34:40 [DEBUG] logger1 debug
+```
+File seclogfile.log:
+```
+04/05/2020 14:34:40 [INFO] logger1 info
+04/05/2020 14:34:40 [DEBUG] logger1 debug
 ```
